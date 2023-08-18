@@ -1,0 +1,129 @@
+.select-action {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--tiny-x);
+    width: 100%;
+    padding: var(--tiny-x);
+    background-color: var(--text-color);
+    margin-bottom: var(--small-x);
+    align-items: center;
+    border-radius: var(--tiny-xx);
+}
+
+div.select-action button {
+    background-color: var(--text-color);
+    padding: 0;
+    transition: all .5s ease-in-out;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+div.select-action button a {
+    transition: color .5s ease-in-out;
+}
+
+a a:active,
+a:link,
+a:visited {
+    color: inherit;
+}
+
+button a {
+    padding: var(--small);
+    display: block;
+}
+
+button a:not(.active-form a) {
+    color: var(--secondary-color);
+}
+
+.container .active-form {
+    box-shadow: inset 0 0 10px var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    background-color: var(--secondary-color);
+    padding: var(--lg) var(--medium);
+    border-radius: var(--tiny-xx);
+    box-shadow: var(--shadow);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--small);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    column-gap: var(--tiny-x);
+    margin-top: var(--medium);
+    margin-bottom: var(--medium);
+}
+
+hr {
+    flex: 1 1 100%;
+    margin-top: 15px;
+}
+
+.container button,
+.container input {
+    border-radius: var(--tiny-x);
+    padding: var(--small);
+    width: 100%;
+    border: none;
+}
+
+.container button,
+.signup {
+    font-weight: 700;
+    font-size: var(--small);
+    padding: var(--small);
+}
+
+.form-wrapper>button:last-of-type {
+    background-color: red;
+    color: var(--secondary-color);
+}
+
+.container input {
+
+    /* box-shadow: var(--shadow); */
+    box-shadow: inset 0 0 1px var(--text-color);
+    margin-top: var(--tiny);
+    font-size: var(--small);
+    outline: none;
+    transition: box-shadow .5s ease;
+}
+
+input:focus {
+    box-shadow: inset 0 0 5px var(--text-color);
+}
+
+/* label {} */
+
+.password {
+    position: relative;
+}
+
+button.toggle {
+    position: absolute;
+    top: 12%;
+    right: 2%;
+    bottom: 0%;
+    display: inline;
+    width: auto;
+    padding: var(--tiny-x) var(--small);
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+    font-size: var(--small-x);
+}

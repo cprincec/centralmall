@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;700;800;900&display=swap');
+
+:root {
+    --font: 'Inter', sans-serif;
+
+    /* Colors */
+    --primary-color: #38B000;
+    --secondary-color: whitesmoke;
+    --text-color: #333d29;
+
+    /* Sizes */
+    --tiny: .25rem;
+    --tiny-x: .5rem;
+    --tiny-xx: .75rem;
+    --small: 1rem;
+    --small-x: 1.25rem;
+    --medium: 1.5rem;
+    --medium-x: 1.75rem;
+    --inter: 2rem;
+    --inter-x: 2.25rem;
+    --lg: 2.5rem;
+    --lg-x: 2.75rem;
+    --x-lg: 3rem;
+    --xx-lg: 3.25rem;
+    --xxx-lg: 3.5rem;
+
+    --shadow: inset 0 0 10px var(--text-color);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+body {
+    /* background: linear-gradient(to bottom, var(--secondary-color) 55%, var(--primary-color)); */
+    font-family: var(--font);
+    /* background-color: gray; */
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+#root {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+main {}

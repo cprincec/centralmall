@@ -1,0 +1,161 @@
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+    gap: var(--inter);
+    justify-content: center;
+    align-items: stretch;
+}
+
+.product-card-wrapper {
+    position: relative;
+
+}
+
+.product-card {
+    display: grid;
+    box-shadow: var(--shadow);
+    border-radius: var(--tiny-xx);
+    position: relative;
+    height: 100%;
+}
+
+.product-card picture {
+    padding: 1rem;
+    border-radius: var(--tiny-xx);
+}
+
+.product-card img {
+    object-fit: contain;
+    aspect-ratio: 1/.7;
+}
+
+.product-card-info {
+    /* background-color: var(--secondary-color); */
+    padding: var(--small);
+    border-radius: var(--tiny-xx);
+    color: var(--text-color);
+    margin: var(--tiny);
+}
+
+.product-card-info h3 {
+    margin-bottom: var(--tiny-xx);
+}
+
+.product-card .price {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.add-to-cart-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: var(--small);
+    padding: var(--inter);
+    cursor: auto;
+    animation: appear .1s ease-in-out;
+    border-radius: var(--tiny-xx);
+    opacity: 1;
+}
+
+
+.space-between-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.add-to-cart-overlay button {
+    border-radius: var(--tiny-x);
+    align-self: center;
+    padding: var(--tiny-xx) var(--small);
+    font-size: var(--small);
+    font-weight: 700;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 1px;
+}
+
+.add-to-cart-overlay>button {
+    animation: slideFromTop .5s ease-in-out;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: var(--tiny-xx) var(--medium);
+
+}
+
+.add-to-cart-overlay>a {
+    animation: slideFromBottom .5s ease-in-out;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromTop {
+    from {
+        transform: translateY(-200%);
+        /* opacity: 0; */
+    }
+
+    to {
+        transform: translateY(0%);
+        /* opacity: 1; */
+    }
+}
+
+@keyframes slideToTop {
+    from {
+        transform: translateY(0);
+        /* opacity: 0; */
+    }
+
+    to {
+        transform: translateY(-200%);
+        /* opacity: 1; */
+    }
+}
+
+@keyframes slideToBottom {
+    from {
+        transform: translateY(0%);
+        /* opacity: 0; */
+    }
+
+    to {
+        transform: translateY(200%);
+        /* opacity: 1; */
+    }
+}
+
+@keyframes slideFromBottom {
+    from {
+        transform: translateY(200%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+.product-card-wrapper:hover .add-to-cart-overlay {
+    display: flex;
+}

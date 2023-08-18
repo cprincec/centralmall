@@ -1,0 +1,100 @@
+.product-details-container {
+    display: grid;
+    row-gap: var(--small);
+    padding: var(--tiny-xx);
+}
+
+.product-details-images {
+    display: grid;
+    row-gap: var(--small-x);
+}
+
+.product-details-main-image img {
+    aspect-ratio: 1/.7;
+    object-fit: contain;
+}
+
+.product-details-thumbnails {
+    display: grid;
+    column-gap: var(--tiny-x);
+    grid-template-columns: repeat(auto-fit, minmax(50px, 80px));
+}
+
+.product-details-main-image {
+    box-shadow: var(--shadow);
+    padding: var(--small-x);
+    border-radius: var(--tiny-x);
+}
+
+.product-details-info-container>* {
+    margin-bottom: var(--tiny-x);
+}
+
+.price {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: var(--small-x);
+}
+
+.product-details-actions {
+    display: grid;
+    column-gap: var(--small);
+    row-gap: var(--small);
+    margin-top: var(--inter);
+}
+
+.product-details-actions>* {
+    border-radius: var(--tiny-x);
+    border: none;
+}
+
+.product-details-actions button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-size: var(--small);
+    font-weight: 700;
+    padding: var(--small);
+}
+
+.set-quantity {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 28% 44% 28%;
+}
+
+.set-quantity input {
+    padding: var(--tiny-xx) var(--tiny-xx);
+    box-shadow: var(--shadow);
+    font-weight: 700;
+    font-size: var(--small);
+    text-align: center;
+    border: 2px solid transparent;
+    outline: none;
+}
+
+.set-quantity input:focus {
+    border: 2px solid transparent;
+}
+
+.set-quantity>button {
+    padding: var(--small) 0;
+    background-color: var(--primary-color);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.set-quantity>button>* {
+    font-size: var(--small-x);
+    font-weight: 900;
+    padding: 0;
+}
+
+.set-quantity>button:first-of-type {
+    border-radius: var(--tiny-x) 0 0 var(--tiny-x);
+}
+
+.set-quantity>button:last-of-type {
+    border-radius: 0 var(--tiny-x) var(--tiny-x) 0;
+}

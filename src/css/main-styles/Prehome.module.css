@@ -1,0 +1,49 @@
+h1,
+.instruction {
+    margin: var(--tiny-x) 0;
+}
+
+.caption {
+    font-size: var(--small);
+    font-style: italic;
+}
+
+.instruction {}
+
+.shops-container {
+    display: grid;
+    flex-wrap: wrap;
+    gap: var(--tiny-x);
+    margin: var(--small-x) 0;
+}
+
+.shop {
+    color: var(--secondary-color);
+    padding: var(--small);
+    animation: flyin .5s linear;
+    background-color: var(--primary-color);
+    border-radius: var(--tiny-x);
+    text-align: center;
+}
+
+.shop h2 {
+    color: var(--secondary-color);
+}
+
+.shop:nth-of-type(2) {
+    animation: flyin 1s;
+}
+
+.shop:nth-of-type(3) {
+    animation: flyin 1.5s;
+}
+
+@keyframes flyin {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
