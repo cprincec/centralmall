@@ -2,6 +2,7 @@ import Styles from "../css/main-styles/signup.module.css";
 import { useState, useContext } from "react";
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 import UserContext from "../contexts/user";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -10,18 +11,14 @@ const SignUp = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const { user, logIn } = useContext(UserContext);
+  // const { user, logIn } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function handleSignUp(e) {
     e.preventDefault();
     const data = {
       firstName: e.target["firstName"].value,
       lastName: e.target["lastName"].value,
-      email: e.target["email"].value,
-      password: e.target["password"].value,
-    };
-
-    const loginData = {
       email: e.target["email"].value,
       password: e.target["password"].value,
     };
@@ -33,38 +30,8 @@ const SignUp = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
-        for (var pair of response.headers.entries()) {
-          // accessing the entries
-          console.log(pair);
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        fetch("https://centeralmall.onrender.com/auth/login", {
-          method: "post",
-          body: JSON.stringify(loginData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          withCredentials: true,
-        })
-          .then((response) => {
-            for (var pair of response.headers.entries()) {
-              // accessing the entries
-              console.log(pair);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            logIn(data);
-            console.log(user, data);
-          })
-          .catch((error) => console.log("user data error", error));
-      })
+      .then((response) => response.json())
+      .then(() => navigate("/signup-login/login", { replace: true }))
       .catch((error) => console.log(error));
   }
 
@@ -107,11 +74,27 @@ const SignUp = () => {
           SIGN UP
         </button>
       </form>
+
       <div className={Styles.divider}>
         <hr /> <span>OR</span>
         <hr />
       </div>
-      <button>SIGN UP WITH GOOGLE</button>
+      <Link to={"https://centeralmall.onrender.com/auth/google"}>
+        <button
+        // onClick={() => {
+        //   fetch("https://centeralmall.onrender.com/auth/google", {
+        //     redirect: "follow",
+        //   })
+        //     .then((response) => {
+        //       response.json();
+        //     })
+        //     .then((data) => console.log(data))
+        //     .catch((error) => console.log(error));
+        // }}
+        >
+          SIGN UP WITH GOOGLE
+        </button>
+      </Link>
     </>
   );
 };

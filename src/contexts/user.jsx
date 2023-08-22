@@ -14,6 +14,7 @@ export const UserContextProvider = ({ children }) => {
   function logIn(user) {
     setUser(user);
     setIsLoggedIn(true);
+    console.log(user);
   }
 
   function logOut() {

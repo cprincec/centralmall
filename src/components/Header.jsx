@@ -2,18 +2,39 @@ import { BsCart4 } from "react-icons/bs";
 import { BiSolidUserCircle } from "react-icons/bi";
 import styles from "../css/header-styles/header.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CartContext from "../contexts/cart";
 import UserContext from "../contexts/user";
 import { calculateCartQuantity } from "../utils";
 import Cart from "./Cart";
+import Cookies from "universal-cookie";
 const Header = () => {
-  
   const { cart, display, setDisplay } = useContext(CartContext);
-  const { user, isLoggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const quantity = calculateCartQuantity(cart);
+
+  const { isLoggedIn, logIn, user } = useContext(UserContext);
+  const cookies = new Cookies();
+  useEffect(() => {
+    //if user is not loggedin but has an active session in the server
+    if (!isLoggedIn && cookies.get("token")) {
+      const id = cookies.get("id");
+      const token = cookies.get("token");
+      fetch(`https://centeralmall.onrender.com/users/${id}`, {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          logIn(data);
+          console.log(user, data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
 
   // Check for existing user session and get data for that user
   return (

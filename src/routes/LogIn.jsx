@@ -1,7 +1,9 @@
 import Styles from "../css/main-styles/signup.module.css";
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 import UserContext from "../contexts/user";
+import Cookies from "universal-cookie";
 
 const LogIn = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -10,6 +12,8 @@ const LogIn = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+  const cookies = new Cookies();
+  const navigate = useNavigate();
 
   function handleSignUp(e) {
     e.preventDefault();
@@ -18,20 +22,20 @@ const LogIn = () => {
       email: e.target["email"].value,
       password: e.target["password"].value,
     };
-
-    fetch("https://centeralmall.onrender.com/auth/login", {
+    console.log(loginData);
+    fetch("https://centeralmall.onrender.com/users/login", {
       method: "post",
-      body: JSON.stringify(loginData),
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
-      withCredentials: true,
+      body: JSON.stringify(loginData),
     })
       .then((response) => response.json())
       .then((data) => {
-        logIn(data);
-        console.log(user, data);
+        cookies.set("token", data.token, { path: "/" });
+        cookies.set("id", data.user._id, { path: "/" });
+        logIn(data.user);
+        navigate("/", { replace: true });
       })
       .catch((error) => console.log("user data error", error));
   }

@@ -9,24 +9,10 @@ import SignUpLogIn from "./routes/SignUpLogIn";
 import LogIn from "./routes/LogIn";
 import UserContext from "./contexts/user";
 import { useContext, useEffect } from "react";
+import Cookies from "universal-cookie";
 
 function App() {
-  const { isLoggedIn, logIn } = useContext(UserContext);
-  useEffect(() => {
-    //if user is not loggedin but has an active session in the server
-    if (!isLoggedIn && document.cookie.includes("sessionCookieName=")) {
-      fetch("https://centeralmall.onrender.com/auth/refresh", {
-        method: "get",
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          logIn(data);
-          console.log(data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, []);
+
 
   return (
     <>
