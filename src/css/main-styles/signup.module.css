@@ -48,10 +48,11 @@ button a:not(.active-form a) {
 }
 
 .container {
-    background-color: var(--secondary-color);
+    /* background-color: white; */
     padding: var(--lg) var(--medium);
     border-radius: var(--tiny-xx);
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
+    margin: var(--inter) var(--inter);
 }
 
 form {
@@ -89,7 +90,8 @@ hr {
     padding: var(--small);
 }
 
-.form-wrapper>button:last-of-type {
+.form-wrapper>button:last-of-type,
+.form-wrapper a button {
     background-color: red;
     color: var(--secondary-color);
 }
@@ -97,7 +99,7 @@ hr {
 .container input {
 
     /* box-shadow: var(--shadow); */
-    box-shadow: inset 0 0 1px var(--text-color);
+    /* box-shadow: inset 0 0 1px var(--text-color); */
     margin-top: var(--tiny);
     font-size: var(--small);
     outline: none;
@@ -124,6 +126,6 @@ button.toggle {
     padding: var(--tiny-x) var(--small);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: none;
+    /* box-shadow: none; */
     font-size: var(--small-x);
 }

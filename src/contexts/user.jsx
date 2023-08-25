@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import Cookies from "universal-cookie";
 
 const UserContext = createContext({
   user: null,
@@ -10,16 +11,18 @@ const UserContext = createContext({
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const cookies = new Cookies();
 
   function logIn(user) {
     setUser(user);
     setIsLoggedIn(true);
-    console.log(user);
   }
 
   function logOut() {
     setUser(null);
     setIsLoggedIn(false);
+    cookies.remove("id");
+    cookies.remove("token");
   }
 
   const userContextValue = {

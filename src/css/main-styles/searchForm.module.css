@@ -1,0 +1,110 @@
+.search-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    width: 100%;
+    animation: an 1s forwards;
+    background-color: var(--secondary-color);
+    padding: 10%;
+    padding-top: 20%;
+    z-index: 99;
+}
+
+@keyframes an {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+.search-page .close {
+    background-color: transparent;
+    color: red;
+    font-size: var(--inter-x);
+    position: absolute;
+    right: 8%;
+    top: 2%;
+}
+
+.search-page .close>* {
+    color: red;
+    stroke: red;
+    fill: red;
+    /* background-color: red; */
+}
+
+.search-page form {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    border-radius: var(--tiny-x);
+    background-color: white;
+}
+
+.search-page button,
+.search-page input {
+    display: inline;
+    padding: var(--tiny-xx);
+    outline: none;
+    border: none;
+}
+
+.search-page button {
+    padding-right: 0;
+    font-size: var(--inter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    background-color: white;
+    border-radius: var(--tiny-x) 0 0 var(--tiny-x);
+}
+
+.search-page input {
+    padding-left: var(--tiny);
+    border-radius: 0 var(--tiny-x) var(--tiny-x) 0;
+    color: var(--text-color);
+}
+
+.search-page input:focus {
+    box-shadow: none;
+}
+
+.search-page .search-results {
+    overflow: auto;
+    transition: height 3s;
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--tiny-x);
+}
+
+.search-page .search-results.result-found {
+    height: 90%;
+}
+
+.search-page .search-results a {
+    color: var(--text-color);
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    /* grid-template-rows: 50px; */
+    padding: var(--tiny-x);
+    background-color: white;
+    column-gap: var(--tiny-x);
+}
+
+.search-page .search-results img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1/.7;
+    object-fit: contain;
+}
+
+.search-page h4 {
+    font-size: var(--tiny-xx);
+    font-weight: 400;
+}

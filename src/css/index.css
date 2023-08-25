@@ -24,7 +24,8 @@
     --xx-lg: 3.25rem;
     --xxx-lg: 3.5rem;
 
-    --shadow: inset 0 0 10px var(--text-color);
+    /* --shadow: inset 0 0 10px var(--text-color); */
+    --shadow: none;
 }
 
 * {

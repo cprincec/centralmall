@@ -1,20 +1,36 @@
 import { BsCart4 } from "react-icons/bs";
-import { BiSolidUserCircle } from "react-icons/bi";
+import { BiSolidUserCircle, BiSearchAlt2 } from "react-icons/bi";
+import { TfiMenu } from "react-icons/tfi";
 import styles from "../css/header-styles/header.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState, useRef } from "react";
+
 import CartContext from "../contexts/cart";
 import UserContext from "../contexts/user";
+import GeneralContext from "../contexts/general";
+
 import { calculateCartQuantity } from "../utils";
 import Cart from "./Cart";
 import Cookies from "universal-cookie";
-const Header = () => {
+import useHideComponent from "../hooks/useHideComponent";
+import SearchForm from "../components/Search";
+
+const Header = ({ props }) => {
+  const params = useParams();
+  console.log(params);
+  // Cart context
   const { cart, display, setDisplay } = useContext(CartContext);
+  // General context
+  const { toggleSearching } = useContext(GeneralContext);
+  // User context
+  const { isLoggedIn, logIn, logOut, user } = useContext(UserContext);
+
+  const [showProfileDropdown, setShowprofileDropdown] = useState(false);
+  const [isSearching, setIsSeaching] = useState(false);
   const navigate = useNavigate();
 
   const quantity = calculateCartQuantity(cart);
 
-  const { isLoggedIn, logIn, user } = useContext(UserContext);
   const cookies = new Cookies();
   useEffect(() => {
     //if user is not loggedin but has an active session in the server
@@ -36,16 +52,25 @@ const Header = () => {
     }
   }, []);
 
+  // make overlay disappear when i click outside
+  const productRef = useRef(null);
+  useHideComponent(productRef, () => {
+    setShowprofileDropdown(false);
+  });
+
   // Check for existing user session and get data for that user
   return (
     <>
       <header>
+        <button className={styles.hamburger}>
+          <TfiMenu />
+        </button>
         <Link to={"./"}>
           <svg
             width="157.95"
             height="24.120443349753693"
             viewBox="0 0 406 62"
-            className="css-1j8o68f"
+            className={`css-1j8o68f ${styles.logo}`}
           >
             <defs id="SvgjsDefs5408"></defs>
             <g
@@ -127,9 +152,37 @@ const Header = () => {
           </svg>
         </Link>
 
-        <div className={`${styles.flex} icons`}>
+        <div className={`${styles.flex} ${styles.icons}`}>
           {isLoggedIn ? (
-            user.firstName
+            <>
+              <button
+                ref={productRef}
+                onClick={() => {
+                  setShowprofileDropdown((prevValue) => !prevValue);
+                }}
+                className={styles.initials}
+              >{` ${user.firstName[0]}${user.lastName[0]}`}</button>
+              <section
+                className={`${
+                  showProfileDropdown && styles["profile-dropdown"]
+                } ${styles["profile-info"]}`}
+              >
+                <h2>
+                  {user.firstName[0].toUpperCase() +
+                    user.firstName.substring(1)}{" "}
+                  {user.lastName[0].toUpperCase() + user.lastName.substring(1)}
+                </h2>
+                <button className="button">View profile</button>
+                <button
+                  className="button"
+                  onClick={() => {
+                    logOut(user);
+                  }}
+                >
+                  Log out
+                </button>
+              </section>
+            </>
           ) : (
             <BiSolidUserCircle
               className={styles["user-icon"]}
@@ -138,6 +191,15 @@ const Header = () => {
               }}
             />
           )}
+
+          <button className={styles.search}>
+            <BiSearchAlt2
+              onClick={() => {
+                setIsSeaching((prevValue) => !prevValue);
+              }}
+            />
+          </button>
+          {isSearching && <SearchForm setIsSearching={setIsSeaching} />}
           <div className={styles["cart-container"]} onClick={setDisplay}>
             <BsCart4 className={styles.cart} />
             {quantity > 0 && (

@@ -2,76 +2,55 @@ import useFetch from "../hooks/useFetch";
 import Styles from "../css/main-styles/Home.module.css";
 import { Link, useParams } from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
-import { useRef, useState, useContext } from "react";
-import { generateratingStars } from "../utils";
-import CartContext from "../contexts/cart";
+import { useRef, useState, useContext, useEffect } from "react";
+import Products from "../components/Products";
+import GeneralContext from "../contexts/general";
 
 const Home = () => {
   const params = useParams();
-  const { data, isLoading, error } = useFetch(
-    `https://centeralmall.onrender.com/Shops/${params.shopId}/products`,
-    `${params.shopId}`
+
+  const categoriesData = useFetch(
+    `https://centeralmall.onrender.com/Shops/${params.shopId}/categories`,
+    `${params.shopId}-categories`
   );
 
-  const cartCtx = useContext(CartContext);
+  const { changeShop } = useContext(GeneralContext);
+  // Store the current shop in context
+  useEffect(() => {
+    changeShop(params.shopId);
+  }, [params.shopId]);
 
   return (
-    <>
-      {isLoading && (
-        <div className="loading">
+    <div className={Styles.home}>
+      {/* Categories */}
+      {categoriesData.isLoading && (
+        <div className="mini-loading">
           <LuLoader />
         </div>
       )}
-      {error && <p>{error}</p>}
-      {!data && !error ? (
-        <div className="loading">
-          <LuLoader />
-        </div>
-      ) : (
-        <div className={Styles["products-container"]}>
-          {data.map((product) => (
-            <div className={Styles["product-card-wrapper"]} key={product.id}>
-              <article className={Styles["product-card"]}>
-                <picture>
-                  <img
-                    src={product?.image ? product.image : product.images[0]}
-                    alt={product.title}
-                    loading="lazy"
-                  />
-                </picture>
-                <div className={Styles["product-card-info"]}>
-                  <h3>
-                    {product.title.length > 60
-                      ? `${product.title.substring(0, 60)}...`
-                      : product.title}
-                  </h3>
-                  <div className={Styles["space-between-flex"]}>
-                    <span className={Styles.price}>${product.price}</span>
-                    {product.rating && (
-                      <span>{generateratingStars(product.rating.rate)}</span>
-                    )}
-                  </div>
-                </div>
-              </article>
+      {categoriesData.error && (
+        <div className="error">{categoriesData.error}</div>
+      )}
+      {categoriesData.data && (
+        <>
+          <h2>Categories</h2>
+          <section className={Styles["categories-container"]}>
+            {categoriesData.data.map((category) => (
+              <Link
+                key={category?.name ? category.name : category}
+                className={`${Styles.category} button`}
+              >
+                <h3>{category?.name ? category.name : category}</h3>
+              </Link>
+            ))}
+          </section>
+        </>
+      )}
 
-              <span className={`${Styles["add-to-cart-overlay"]}`}>
-                <button
-                  onClick={() => {
-                    cartCtx.addProduct(product);
-                  }}
-                  className=""
-                >
-                  Add to cart
-                </button>
-                <Link to={`${product.id}`}>
-                  <button className="view-product">View details</button>
-                </Link>
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
+      {/* All products */}
+      <h2>Our products</h2>
+      <Products />
+    </div>
   );
 };
 

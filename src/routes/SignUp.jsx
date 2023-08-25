@@ -75,26 +75,16 @@ const SignUp = () => {
         </button>
       </form>
 
-      <div className={Styles.divider}>
+      {/* <div className={Styles.divider}>
         <hr /> <span>OR</span>
         <hr />
       </div>
       <Link to={"https://centeralmall.onrender.com/auth/google"}>
         <button
-        // onClick={() => {
-        //   fetch("https://centeralmall.onrender.com/auth/google", {
-        //     redirect: "follow",
-        //   })
-        //     .then((response) => {
-        //       response.json();
-        //     })
-        //     .then((data) => console.log(data))
-        //     .catch((error) => console.log(error));
-        // }}
         >
-          SIGN UP WITH GOOGLE
+          LOG IN WITH GOOGLE
         </button>
-      </Link>
+      </Link> */}
     </>
   );
 };

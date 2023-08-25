@@ -6,6 +6,7 @@ const CartContext = createContext({
   setDisplay: () => {},
   addProduct: () => {},
   removeProduct: () => {},
+  changeQuantity: () => {},
 });
 
 export const CartContextProvider = ({ children }) => {
@@ -15,11 +16,14 @@ export const CartContextProvider = ({ children }) => {
 
   const [displayCart, setDisplayCart] = useState(false);
 
-  function addProduct(product) {
+  // adding the shopId prevents clashing of products with same Id from different shops
+  function addProduct(product, shopId) {
     let newCart = [...cart];
 
     // Check for product in cart
-    let existingIndex = newCart.findIndex((pro) => pro.id === product.id);
+    let existingIndex = newCart.findIndex(
+      (pro) => pro.id === product.id && pro.shop === shopId
+    );
     if (existingIndex >= 0) {
       newCart[existingIndex].quantity++;
       newCart[existingIndex].total += newCart[existingIndex].price;
@@ -28,18 +32,36 @@ export const CartContextProvider = ({ children }) => {
         ...product,
         quantity: 1,
         total: product.price,
+        shop: shopId,
       };
       newCart = [...newCart, newProduct];
     }
     setCart(() => newCart);
   }
-
-  function removeProduct(productId, remove = false) {
+  
+  function changeQuantity(productId, shopId, quantity) {
+    console.log(productId, shopId, quantity);
     let newCart = [...cart];
-    let index = newCart.findIndex((pro) => pro.id === productId);
+    let index = newCart.findIndex(
+      (product) => product.id === productId && product.shop === shopId
+    );
+    if (index >= 0) {
+      newCart[index].quantity = quantity;
+    }
+    setCart(newCart);
+  }
+
+  // adding the shopId prevents clashing of products with same Id from different shops
+  function removeProduct(productId, shopId, remove = false) {
+    let newCart = [...cart];
+    let index = newCart.findIndex(
+      (pro) => pro.id === productId && pro.shop === shopId
+    );
 
     if (remove) {
-      newCart = newCart.filter((product) => product.id !== productId);
+      newCart = newCart.filter(
+        (product) => product.id !== productId && product.shop === shopId
+      );
       setCart(newCart);
       return;
     }
@@ -50,8 +72,10 @@ export const CartContextProvider = ({ children }) => {
       newCart[index].total -= newCart[index].price;
     }
 
-    if (newCart[index].quantity < 1) {
-      newCart = newCart.filter((product) => product.id !== productId);
+    if (index >= 0 && newCart[index].quantity < 1) {
+      newCart = newCart.filter(
+        (product) => product.id !== productId && product.shop === shopId
+      );
     }
     setCart(newCart);
   }
@@ -70,8 +94,8 @@ export const CartContextProvider = ({ children }) => {
     setDisplay: toggleDisplayCart,
     addProduct,
     removeProduct,
+    changeQuantity,
   };
-  console.log(displayCart);
   return (
     <CartContext.Provider value={cartContextValue}>
       {children}

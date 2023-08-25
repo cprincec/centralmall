@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import CartContext from "../contexts/cart";
 import Styles from "../css/main-styles/Cart.module.css";
 import productStyles from "../css/main-styles/productDetails.module.css";
@@ -47,42 +48,41 @@ const Cart = () => {
                   />
                 </picture>
                 <div>
-                  <h2>
-                    {product.title.length > 40
-                      ? `${product.title.substring(0, 40)}...`
-                      : product.title}
-                  </h2>
-                  <span
-                    className={`${productStyles["set-quantity"]} ${Styles.quantity}`}
-                  >
-                    <button
-                      onClick={() => {
-                        removeProduct(product.id);
-                      }}
-                    >
-                      <RiSubtractLine style={{ fontWeight: 700 }} />
-                    </button>
-                    <input
-                      type="number"
-                      value={calculateProductQuantity(cart, product)}
-                      readOnly
-                    />
-                    <button
-                      onClick={() => {
-                        addProduct(product);
-                      }}
-                    >
-                      <RiAddLine />
-                    </button>
-                  </span>
+                  <h2 className={Styles.title}>{product.title}</h2>
                   <p className={Styles.price}>${product.total.toFixed(2)}</p>
+                  <button
+                    className={Styles["remove-item"]}
+                    onClick={() => {
+                      removeProduct(product.id, product.shop, true);
+                    }}
+                  >
+                    Remove
+                  </button>
                 </div>
-                <RiDeleteBinLine
-                  className={Styles["remove-item"]}
-                  onClick={() => {
-                    removeProduct(product.id, true);
-                  }}
-                />
+
+                <span
+                  className={`${productStyles["set-quantity"]} ${Styles.quantity}`}
+                >
+                  <button
+                    onClick={() => {
+                      removeProduct(product.id, product.shop);
+                    }}
+                  >
+                    <RiSubtractLine style={{ fontWeight: 700 }} />
+                  </button>
+                  <input
+                    type="number"
+                    value={calculateProductQuantity(cart, product)}
+                    disabled
+                  />
+                  <button
+                    onClick={() => {
+                      addProduct(product, product.shop);
+                    }}
+                  >
+                    <RiAddLine />
+                  </button>
+                </span>
               </section>
             </>
           ))}

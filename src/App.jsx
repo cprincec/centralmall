@@ -10,10 +10,9 @@ import LogIn from "./routes/LogIn";
 import UserContext from "./contexts/user";
 import { useContext, useEffect } from "react";
 import Cookies from "universal-cookie";
+import Header from "./components/Header";
 
 function App() {
-
-
   return (
     <>
       <BrowserRouter>
@@ -33,21 +32,6 @@ function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
-      {/* return (
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-
-            <Route path="/orders" element={<OrdersRoot />}>
-              <Route element={<Orders />} index />
-
-              <Route path=":id" element={<OrderDetail />} />
-            </Route>
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-      ); */}
     </>
   );
 }

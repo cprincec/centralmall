@@ -1,11 +1,13 @@
 header,
 main {
-    padding: 1rem;
+    /* padding: .1rem; */
     position: relative;
+    background-color: var(--secondary-color);
 }
 
 a {
-    text-decoration: none
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 p {
@@ -54,15 +56,16 @@ input[type="number"]::-webkit-outer-spin-button {
 
 button {
     cursor: pointer;
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
     letter-spacing: 1px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .button {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: var(--tiny-xx) var(--medium);
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
 }
 
 @keyframes slideFromLeft {
@@ -73,4 +76,9 @@ button {
     to {
         transform: translateY(0);
     }
+}
+
+main button:hover,
+main a:hover {
+    opacity: .7;
 }

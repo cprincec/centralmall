@@ -30,11 +30,18 @@ const LogIn = () => {
       },
       body: JSON.stringify(loginData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          console.log("response not ok");
+          throw new Error("Error");
+        }
+        return response.json();
+      })
       .then((data) => {
         cookies.set("token", data.token, { path: "/" });
         cookies.set("id", data.user._id, { path: "/" });
         logIn(data.user);
+        console.log(data);
         navigate("/", { replace: true });
       })
       .catch((error) => console.log("user data error", error));
@@ -70,11 +77,11 @@ const LogIn = () => {
           LOG IN
         </button>
       </form>
-      <div className={Styles.divider}>
+      {/* <div className={Styles.divider}>
         <hr /> <span>OR</span>
         <hr />
       </div>
-      <button>LOGIN WITH GOOGLE</button>
+      <button>LOGIN WITH GOOGLE</button> */}
     </>
   );
 };
