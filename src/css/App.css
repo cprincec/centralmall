@@ -82,3 +82,60 @@ main button:hover,
 main a:hover {
     opacity: .7;
 }
+
+.notice {
+    background-color: var(--primary-color);
+    position: fixed;
+    top: 3%;
+    left: 8%;
+    right: 8%;
+    padding: var(--tiny-x);
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    border-radius: var(--tiny);
+    z-index: 999;
+    animation: bounceIn .5s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    50% {
+        transform: translateY(0);
+        transform: skewX(-20deg);
+
+    }
+
+    75% {
+        transform: skewX(20deg);
+    }
+
+    100% {
+        transform: skewX(0);
+    }
+}
+
+.notice button {
+    grid-column: span 1/-1;
+    background-color: var(--secondary-color);
+    border: none;
+    color: red;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: var(--small-x);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-end;
+}
+
+.notice p {
+    grid-row: 1/2;
+    font-size: var(--small);
+    color: var(--secondary-color);
+    text-align: center;
+}

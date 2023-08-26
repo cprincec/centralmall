@@ -140,15 +140,16 @@ header button {
     position: relative;
 }
 
-.cart-quantity {
+header .cart-quantity {
     position: absolute;
     margin-left: -.75rem;
-    top: -.1rem;
+    top: -.3rem;
     color: var(--secondary-color);
     background-color: var(--text-color);
     border-radius: 50%;
     padding: 2px 5px;
     font-size: var(--tiny-x);
+    border: 2px solid var(--secondary-color);
 }
 
 

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../contexts/cart";
+import GeneralContext from "../contexts/general";
 import Styles from "../css/main-styles/Cart.module.css";
 import productStyles from "../css/main-styles/productDetails.module.css";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -16,6 +17,7 @@ const Cart = () => {
   const [animationState, setAnimationState] = useState("");
   const { cart, addProduct, removeProduct, setDisplay, display } =
     useContext(CartContext);
+  const { createNotification } = useContext(GeneralContext);
   const cartTotal = calculateCartTotal(cart);
 
   useEffect(() => {
@@ -40,7 +42,7 @@ const Cart = () => {
         {cart?.length > 0 &&
           cart.map((product) => (
             <>
-              <section className={Styles["cart-item"]}>
+              <section key={product.id} className={Styles["cart-item"]}>
                 <picture>
                   <img
                     src={product.images ? product.images[0] : product.image}
@@ -54,6 +56,7 @@ const Cart = () => {
                     className={Styles["remove-item"]}
                     onClick={() => {
                       removeProduct(product.id, product.shop, true);
+                      createNotification("Product removed", false);
                     }}
                   >
                     Remove
@@ -66,6 +69,7 @@ const Cart = () => {
                   <button
                     onClick={() => {
                       removeProduct(product.id, product.shop);
+                      createNotification("Product quantity updated!", false);
                     }}
                   >
                     <RiSubtractLine style={{ fontWeight: 700 }} />
@@ -78,6 +82,7 @@ const Cart = () => {
                   <button
                     onClick={() => {
                       addProduct(product, product.shop);
+                      createNotification("Product added successfully!", false);
                     }}
                   >
                     <RiAddLine />

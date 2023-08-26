@@ -22,7 +22,6 @@ export const calculateCartTotal = (cart) => {
   cart.forEach((product) => {
     total += product.total;
   });
-  console.log(cart);
   return total;
 };
 

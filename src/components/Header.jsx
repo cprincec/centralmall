@@ -14,10 +14,13 @@ import Cart from "./Cart";
 import Cookies from "universal-cookie";
 import useHideComponent from "../hooks/useHideComponent";
 import SearchForm from "../components/Search";
+import Notification from "./Notification";
+import { createPortal } from "react-dom";
 
 const Header = ({ props }) => {
   const params = useParams();
-  console.log(params);
+  const { showDialog, notificationMessage, errorNotification } =
+    useContext(GeneralContext);
   // Cart context
   const { cart, display, setDisplay } = useContext(CartContext);
   // General context
@@ -61,6 +64,16 @@ const Header = ({ props }) => {
   // Check for existing user session and get data for that user
   return (
     <>
+      {showDialog
+        ? createPortal(
+            <Notification
+              message={notificationMessage}
+              error={errorNotification}
+            />,
+            document.getElementById("dialogs")
+          )
+        : null}
+
       <header>
         <button className={styles.hamburger}>
           <TfiMenu />

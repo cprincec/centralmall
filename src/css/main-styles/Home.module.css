@@ -1,24 +1,36 @@
 .categories-container {
-    /* display: grid; */
-    /* grid-template-columns: repeat(250px); */
-    /* grid-auto-flow: column; */
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 230px)); */
+    grid-auto-flow: column;
+    /* grid-template-rows: 1fr; */
+    max-width: 100vw;
     overflow: scroll;
     gap: var(--tiny-xx);
     padding: var(--small) var(--tiny-xx);
-    margin: var(--inter) 0;
+    margin-bottom: var(--inter);
+    background-image: url("../../images/hanson-lu-sq5P00L7lXc-unsplash.jpg");
+    filter: grayscale(70%);
+    background-size: cover;
+    margin-top: var(--small-x);
 }
 
 .category {
+    background-color: var(--secondary-color);
+    /* background-color: white; */
+    color: var(--text-color);
+    width: 220px;
     border-radius: var(--tiny-x);
     animation: flyin .5s linear;
-    background-color: white;
-
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--small-x) 0;
+    padding: var(--inter) 0;
 }
 
 .category h3 {
-    color: var(--text-color);
     font-weight: 500;
+    color: var(--text-color);
 }
 
 
@@ -38,6 +50,7 @@
 .home h2 {
     text-align: center;
     font-size: var(--small-x);
+
 }
 
 .home h2::after {
@@ -58,6 +71,7 @@
     display: block;
     margin: 0 auto;
     margin-bottom: var(--tiny-x);
+    margin-top: 3rem;
 }
 
 @keyframes flyin {
@@ -76,7 +90,9 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     justify-content: center;
     align-items: stretch;
+    margin: var(--small-x) 0;
     padding: var(--small) var(--tiny-xx);
+    overflow: hidden;
 }
 
 .product-card-wrapper {

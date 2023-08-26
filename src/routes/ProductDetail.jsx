@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import Styles from "../css/main-styles/productDetails.module.css";
@@ -9,15 +9,19 @@ import { generateratingStars, calculateProductQuantity } from "../utils";
 import { LuLoader } from "react-icons/lu";
 import CartContext from "../contexts/cart";
 import shop from "../contexts/shops";
+import GeneralContext from "../contexts/general";
+import Notification from "../components/Notification";
 
 const ProductDetail = () => {
   const params = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
     `https://centeralmall.onrender.com/Shops/${params.shopId}/products/${params.productId}`
   );
 
   const cartCtx = useContext(CartContext);
+  const { createNotification } = useContext(GeneralContext);
 
   function decreaseQuantity(productId, shopId) {
     cartCtx.removeProduct(productId, shopId);
@@ -88,11 +92,10 @@ const ProductDetail = () => {
                 {calculateProductQuantity(cartCtx.cart, data) >= 1 && (
                   <span className={Styles["set-quantity"]}>
                     <button
-                      onClick={decreaseQuantity.bind(
-                        null,
-                        data.id,
-                        params.shopId
-                      )}
+                      onClick={() => {
+                        decreaseQuantity(data.id, params.shopId);
+                        createNotification("Item quantity updated!", false);
+                      }}
                     >
                       <RiSubtractLine style={{ fontWeight: 700 }} />
                     </button>
@@ -102,7 +105,10 @@ const ProductDetail = () => {
                       disabled
                     />
                     <button
-                      onClick={increaseQuantity.bind(null, data, params.shopId)}
+                      onClick={() => {
+                        increaseQuantity(data, params.shopId);
+                        createNotification("Product added successfully!");
+                      }}
                     >
                       <RiAddLine />
                     </button>
@@ -110,7 +116,10 @@ const ProductDetail = () => {
                 )}
                 {calculateProductQuantity(cartCtx.cart, data) < 1 && (
                   <button
-                    onClick={increaseQuantity.bind(null, data, params.shopId)}
+                    onClick={() => {
+                      increaseQuantity(data, params.shopId);
+                      createNotification("Item added successfully!", false);
+                    }}
                     className=""
                   >
                     ADD TO CART

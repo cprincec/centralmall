@@ -1,6 +1,8 @@
-.page {
+.pre-homepage {
     padding: var(--tiny-xx);
 }
+
+
 
 h1,
 .instruction {
@@ -10,6 +12,85 @@ h1,
 .caption {
     font-size: var(--small);
     font-style: italic;
+}
+
+.mask {
+    /* mask-image: url("https://picsum.photos/600/300");
+    -webkit-mask-image: url("https://picsum.photos/600/300");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: cover;
+
+    -webkit-mask-size: cover; */
+    /* text-decoration-line: underline; */
+
+    /* background: linear-gradient(to left, red, orange, red); */
+    /* height: 400px; */
+    /* background-color: rgba(0, 0, 0, .7); */
+    background-color: white;
+    padding: var(--inter) var(--tiny-x);
+    text-align: center;
+    /* box-shadow: 0 0 1px var(--text-color); */
+    /* background-image: radial-gradient(white, white, green, white, white); */
+}
+
+.pre-homepage .h1 {
+    /* mask-image: url("https://picsum.photos/600/300");
+    -webkit-mask-image: url("https://picsum.photos/600/300");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: cover;
+    -webkit-mask-size: cover;
+ 
+    font-size: 10rem;
+    Mask-mode: luminance;
+    background-color: transparent;
+    -webkit-mask: url("https://picsum.photos/600/300"); */
+    /* 
+    -WebKit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)); */
+    font-family: 'Staatliches', cursive;
+    color: transparent;
+    /* text-shadow: 2px 0px 0px var(--text-color); */
+
+    /* color: var(--secondary-color); */
+    /* text-shadow: 0 0 3px var(--text-color); */
+    background-size: cover;
+    background-position: center;
+    /* background-color: rgba(0, 0, 0, .9); */
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: 4rem;
+    animation: bounceIn 1.5s ease-in-out reverse infinite;
+    letter-spacing: 2px;
+    background-image: url(https://media.giphy.com/media/xULW8Fw2ZhznUptrYA/giphy.gif);
+
+}
+
+
+@keyframes bounceIn {
+    0% {
+        /* transform: translateY(-100%); */
+        /* background-image: url("../../images/hanson-lu-sq5P00L7lXc-unsplash.jpg"); */
+    }
+
+    50% {
+        /* transform: translateY(0); */
+        /* opacity: 1; */
+        /* transform: skewX(-20deg); */
+
+    }
+
+    75% {
+        /* transform: skewX(20deg); */
+        background-image: url(https://media.giphy.com/media/xULW8Fw2ZhznUptrYA/giphy.gif);
+    }
+
+    100% {
+        transform: skewX(0);
+        /* text-shadow: 2px 0px 0px var(--secondary-color); */
+
+    }
 }
 
 .instruction {}

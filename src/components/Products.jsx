@@ -6,14 +6,24 @@ import { useRef, useState, useContext, useEffect } from "react";
 import { generateratingStars } from "../utils";
 import CartContext from "../contexts/cart";
 import useHideComponent from "../hooks/useHideComponent";
+import Notification from "./Notification";
+import { createPortal } from "react-dom";
+import GeneralContext from "../contexts/general";
 const Products = () => {
   const params = useParams();
   const [showOverlayStates, setShowOverlayStates] = useState([]);
+
   const { data, isLoading, error } = useFetch(
     `https://centeralmall.onrender.com/Shops/${params.shopId}/products`,
     `${params.shopId}`
   );
   const cartCtx = useContext(CartContext);
+  const {
+    showDialog,
+    notificationMessage,
+    errorNotification,
+    createNotification,
+  } = useContext(GeneralContext);
   useEffect(() => {
     data && setShowOverlayStates(() => data.map(() => false));
   }, [data]);
@@ -84,6 +94,8 @@ const Products = () => {
                 <button
                   onClick={() => {
                     cartCtx.addProduct(product, params.shopId);
+                    console.log("clicked", product.id);
+                    createNotification("Product added successfully!", false);
                   }}
                   className=""
                 >
