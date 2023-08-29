@@ -8,6 +8,12 @@ const UserContext = createContext({
   logOut: () => {},
 });
 
+// This would be used to transfer signup info to the login page after successfull sign up
+export const SignUpContext = createContext({
+  signUpEmail: "",
+  signUpPassword: "",
+});
+
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +42,24 @@ export const UserContextProvider = ({ children }) => {
     <UserContext.Provider value={userContextValue}>
       {children}
     </UserContext.Provider>
+  );
+};
+
+export const SignUpContextProvider = ({ children }) => {
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+
+  const loginInfoContextValue = {
+    signUpEmail,
+    signUpPassword,
+    setSignUpEmail,
+    setSignUpPassword,
+  };
+
+  return (
+    <SignUpContext.Provider value={loginInfoContextValue}>
+      {children}
+    </SignUpContext.Provider>
   );
 };
 

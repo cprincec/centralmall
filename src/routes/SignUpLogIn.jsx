@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Styles from "../css/main-styles/signup.module.css";
 import { Link, Outlet, useLocation } from "react-router-dom";
-const SignUpLogIn = ({ children }) => {
+
+const SignUpLogIn = () => {
   const action = useLocation().pathname.split("/").pop();
 
   return (

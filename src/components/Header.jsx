@@ -174,7 +174,7 @@ const Header = ({ props }) => {
                   setShowprofileDropdown((prevValue) => !prevValue);
                 }}
                 className={styles.initials}
-              >{` ${user.firstName[0]}${user.lastName[0]}`}</button>
+              >{` ${user.firstName[0].toUpperCase()}${user.lastName[0].toUpperCase()}`}</button>
               <section
                 className={`${
                   showProfileDropdown && styles["profile-dropdown"]

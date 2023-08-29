@@ -1,11 +1,15 @@
 import Styles from "../css/main-styles/signup.module.css";
 import { useState, useContext } from "react";
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
-import UserContext from "../contexts/user";
+import UserContext, { SignUpContext } from "../contexts/user";
 import { useNavigate, Link } from "react-router-dom";
+import Notification from "../components/Notification";
+import GeneralContext from "../contexts/general";
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { createNotification } = useContext(GeneralContext);
+  const { setSignUpEmail, setSignUpPassword } = useContext(SignUpContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -14,25 +18,34 @@ const SignUp = () => {
   // const { user, logIn } = useContext(UserContext);
   const navigate = useNavigate();
 
-  function handleSignUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
-    const data = {
+
+    const signUpData = {
       firstName: e.target["firstName"].value,
       lastName: e.target["lastName"].value,
       email: e.target["email"].value,
       password: e.target["password"].value,
+      oAuth: "0",
     };
 
-    fetch("https://centeralmall.onrender.com/users", {
+    const response = await fetch("https://centeralmall.onrender.com/users", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(signUpData),
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((response) => response.json())
-      .then(() => navigate("/signup-login/login", { replace: true }))
-      .catch((error) => console.log(error));
+    });
+
+    if (response.ok) {
+      setSignUpEmail(signUpData.email);
+      setSignUpPassword(signUpData.password);
+      createNotification("Account created successfully!", false);
+      navigate("/signup-login/login", { replace: true });
+    } else {
+      let { error } = await response.json();
+      createNotification(error.message, true);
+    }
   }
 
   return (

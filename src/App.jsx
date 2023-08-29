@@ -18,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
+            <Route element={<Header />} />
             <Route path="/" element={<PreHome />} />
             <Route path="/:shopId/products" element={<Home />} />
             <Route
